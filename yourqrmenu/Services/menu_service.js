@@ -1,36 +1,32 @@
 const data = require('../data (temporary)/data');
 
-const getById = function(_id){
-    return getAll().find(menu => menu._id === _id);
+const getById = function(menuId){
+    return getAll().find(menu => menu.id === menuId);
 }
-
 const getAll = function(){
     return data.Menus;
 }
-
 const addMenu = function(menu){
-    data.Menus.push(menu)
+    data.Menus.push(menu);
     return data.Menus;
 }
-const addMenuItem = function (id, menuItem) {
-    const menu = getById(id);
-    menu["menuItems"].push(menuItem);
-    return menu;
+const addMenuItem = function (menuId, menuItem) {
+    getById(menuId).menuItems.push(menuItem)
+    return data.Menus;
 }
-const deleteMenu = function (id) {
-    const index = data.Menus.indexOf(getById(id));
-    console.log(index);
-    if (index > -1) {
+const deleteMenu = function (menuId) {
+    const index = data.Menus.indexOf(getById(menuId));
+    if (index !== -1) {
         data.Menus.splice(index, 1);
     }
     return data.Menus;
 }
-const deleteMenuItem = function (id, name) {
-    const index = data.Menus.indexOf(getById(id));
-    console.log(index);
-    if (index > -1) {
-        const itemIndex = data.Menus[index]["menuItems"].findIndex(item => item.name === name);
-        data.Menus[index]["menuItems"].splice(itemIndex, 1);
+const deleteMenuItem = function (menuId, menuItemId) {
+    const index = data.Menus.indexOf(getById(menuId));
+    if (index !== -1) {
+        const menu = getAll().find(menu => menu.id === menuId);
+        const itemIndex = menu.findIndex(item => item.id === menuItemId);
+        menu.splice(itemIndex, 1);
     }
     return data.Menus;
 }

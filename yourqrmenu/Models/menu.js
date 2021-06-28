@@ -1,6 +1,6 @@
 class Menu {
-    constructor(_id, name, menuItems) {
-        this._id = _id;
+    constructor(id, name, menuItems) {
+        this.id = id;
         this.name = name;
         this.menuItems = menuItems;
     }

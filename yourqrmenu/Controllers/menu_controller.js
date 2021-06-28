@@ -2,7 +2,7 @@ const menuService = require('../Services/menu_service');
 const Menu = require('../Models/menu');
 
 const getById = function(req, res){
-    res.send(menuService.getById(req.params._id));
+    res.send(menuService.getById(req.params["menuId"]));
 }
 
 const getAll = function(req, res){
@@ -14,15 +14,15 @@ const addMenu = function(req, res){
 }
 
 const addMenuItem = function (req, res) {
-    res.send(menuService.addMenuItem(req["params"]["_id"], req.body))
+    res.send(menuService.addMenuItem(req.params["menuId"], req.body))
 }
 
 const deleteMenu = function (req, res) {
-    res.send(menuService.deleteMenu(req["params"]["_id"]))
+    res.send(menuService.deleteMenu(req.params["menuId"]))
 }
 
 const deleteMenuItem = function (req, res) {
-    res.send(menuService.deleteMenuItem(req["params"]["_id"], req["params"]["_name"]))
+    res.send(menuService.deleteMenuItem(req.params["menuId"], req.params["menuItemId"]))
 }
 
 module.exports = {

@@ -5,14 +5,14 @@ const router = express.Router({mergeParams: true});
 
 router.get('/', menuController.getAll);
 
-router.get('/:_id', menuController.getById);
+router.get('/:menuId', menuController.getById);
 
 router.post('/add', menuController.addMenu)
 
-router.post('/add/:_id', menuController.addMenuItem)
+router.post('/:menuId/add', menuController.addMenuItem)
 
-router.delete('/remove/:_id', menuController.deleteMenu)
+router.delete('/remove/:menuId', menuController.deleteMenu)
 
-router.delete('/remove/:_id/item/:_name', menuController.deleteMenuItem)
+router.delete('/remove/:menuId/:menuItemId', menuController.deleteMenuItem)
 
 module.exports = router;

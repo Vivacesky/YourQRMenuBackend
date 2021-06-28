@@ -1,44 +1,49 @@
 module.exports = {
     Menus: [
         {
-            '_id': '0',
+            'id': '0',
             'name': "menu 0",
             'menuItems': [
                 {
+                    "id": 0,
                     "name": "firkandel",
                     "prijs": 13
                 }
             ]
         },
         {
-            '_id': '1',
+            'id': '1',
             'name': "menu 1",
             'menuItems': [
                 {
+                    "id": 1,
                     "name": "bicky",
                     "prijs": 3
                 }
             ]
         },
         {
-            '_id': '2',
+            'id': '2',
             'name': "menu 2",
             'menuItems': [
                 {
+                    "id": 2,
                     "name": "picknicker",
                     "prijs": 5
                 }
             ]
         },
         {
-            '_id': '3',
+            'id': '3',
             'name': "menu 3",
             'menuItems': [
                 {
+                    "id": 3,
                     "name": "broodje",
                     "prijs": 6
                 },
                 {
+                    "id": 1,
                     "name": "bicky",
                     "prijs": 3
                 }
