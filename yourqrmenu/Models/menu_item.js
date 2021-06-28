@@ -1,24 +1,24 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const companySchema = new Schema({
+const menuItemSchema = new Schema({
+    menuId: {
+        type: String,
+        required: true,
+    },
     name: {
         type: String,
         required: true,
     },
-    address: {
+    category: {
         type: String,
         required: true,
     },
-    colors: {
-        type: Array,
-        required: true,
-    },
-    gsm: {
-        type: String,
+    price: {
+        type: Number,
         required: true,
     },
 }, {timestamps: true});
 
-const Company = mongoose.model('companies', companySchema);
-module.exports = Company;
+const Menu = mongoose.model('menuitems', menuItemSchema);
+module.exports = Menu;

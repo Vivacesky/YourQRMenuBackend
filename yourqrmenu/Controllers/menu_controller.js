@@ -1,35 +1,45 @@
 const menuService = require('../Services/menu_service');
-const Menu = require('../Models/menu');
 
-const getById = function(req, res){
-    res.send(menuService.getById(req.params["menuId"]));
+const getByCompanyId = async function (req, res) {
+    try {
+        res.send(await menuService.getByCompanyId(req.params["companyId"]));
+    } catch (ex) {
+        res.status(500).send({message: ex.message});
+    }
 }
-
 const getAll = async function (req, res) {
-    res.send(await menuService.getAll());
+    try {
+        res.send(await menuService.getAll());
+    } catch (ex) {
+        res.status(500).send({message: ex.message});
+    }
 }
-
-const addMenu = function(req, res){
-    res.send(menuService.addMenu(new Menu(req.body)));
+const addMenu = async function (req, res) {
+    try {
+        res.send(await menuService.addMenu(req.body));
+    } catch (ex) {
+        res.status(500).send({message: ex.message});
+    }
 }
-
-const addMenuItem = function (req, res) {
-    res.send(menuService.addMenuItem(req.params["menuId"], req.body))
+const deleteMenu = async function (req, res) {
+    try {
+        res.send(await menuService.deleteMenu(req.params["menuId"]));
+    } catch (ex) {
+        res.status(500).send({message: ex.message});
+    }
 }
-
-const deleteMenu = function (req, res) {
-    res.send(menuService.deleteMenu(req.params["menuId"]))
-}
-
-const deleteMenuItem = function (req, res) {
-    res.send(menuService.deleteMenuItem(req.params["menuId"], req.params["menuItemId"]))
+const updateMenu = async function (req, res) {
+    try {
+        res.send(await menuService.updateMenu(req.params["menuId"], req.body));
+    } catch (ex) {
+        res.status(500).send({message: ex.message});
+    }
 }
 
 module.exports = {
-    getById,
+    getByCompanyId,
     getAll,
     addMenu,
-    addMenuItem,
     deleteMenu,
-    deleteMenuItem
+    updateMenu,
 };

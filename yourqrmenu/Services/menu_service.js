@@ -1,46 +1,25 @@
-const data = require('../data (temporary)/data');
-const Company = require('../Models/company');
-const firebase = require('../db');
-const firestore = firebase.firestore();
+const Menu = require("../Models/menu");
 
-const getById = function (menuId) {
-    return getAll().find(menu => menu.id === menuId);
+const getByCompanyId = function (companyId) {
+    return Menu.findOne({companyId: companyId});
 }
-
-const getAll = async function () {
-
+const getAll = function () {
+    return Menu.find();
 }
-
 const addMenu = function (menu) {
-    data.Menus.push(menu);
-    return data.Menus;
-}
-const addMenuItem = function (menuId, menuItem) {
-    getById(menuId).menuItems.push(menuItem)
-    return data.Menus;
+    return new Menu(menu).save();
 }
 const deleteMenu = function (menuId) {
-    const index = data.Menus.indexOf(getById(menuId));
-    if (index !== -1) {
-        data.Menus.splice(index, 1);
-    }
-    return data.Menus;
+    return Menu.findByIdAndDelete(menuId);
 }
-const deleteMenuItem = function (menuId, menuItemId) {
-    const index = data.Menus.indexOf(getById(menuId));
-    if (index !== -1) {
-        const menu = getAll().find(menu => menu.id === menuId);
-        const itemIndex = menu.findIndex(item => item.id === menuItemId);
-        menu.splice(itemIndex, 1);
-    }
-    return data.Menus;
+const updateMenu = function (menuId, menu) {
+    return Menu.findOneAndUpdate(menuId, menu, {new: true});
 }
 
 module.exports = {
-    getById,
+    getByCompanyId,
     getAll,
     addMenu,
-    addMenuItem,
     deleteMenu,
-    deleteMenuItem
+    updateMenu,
 };

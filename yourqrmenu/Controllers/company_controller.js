@@ -1,24 +1,45 @@
 const companyService = require('../Services/company_service');
-const Company = require('../Models/company');
+
 const getById = async function (req, res) {
-    res.send(await companyService.getById(req.params["companyId"]))
+    try {
+        res.send(await companyService.getById(req.params["companyId"]));
+    } catch (ex) {
+        res.status(500).send({message: ex.message});
+    }
 }
 const getAll = async function (req, res) {
-    res.send(await companyService.getAll());
+    try {
+        res.send(await companyService.getAll());
+    } catch (ex) {
+        res.status(500).send({message: ex.message});
+    }
 }
 const addCompany = async function (req, res) {
-    res.send(await companyService.addCompany(req.body));
+    try {
+        res.send(await companyService.addCompany(req.body));
+    } catch (ex) {
+        res.status(500).send({message: ex.message});
+    }
 }
-const deleteCompany = async function(req, res) {
-    res.send(await companyService.deleteCompany(req.params["companyId"]));
+const deleteCompany = async function (req, res) {
+    try {
+        res.send(await companyService.deleteCompany(req.params["companyId"]));
+    } catch (ex) {
+        res.status(500).send({message: ex.message});
+    }
 }
-const addMenuToCompany = async function (req, res) {
-    res.send(await companyService.addMenuToCompany(req.params["companyId"], req.body))
+const updateCompany = async function (req, res) {
+    try {
+        res.send(await companyService.updateCompany(req.params["companyId"], req.body));
+    } catch (ex) {
+        res.status(500).send({message: ex.message});
+    }
 }
+
 module.exports = {
     getAll,
     addCompany,
     deleteCompany,
     getById,
-    addMenuToCompany
+    updateCompany
 }
