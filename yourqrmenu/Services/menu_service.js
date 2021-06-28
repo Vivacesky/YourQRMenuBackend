@@ -8,24 +8,7 @@ const getById = function (menuId) {
 }
 
 const getAll = async function () {
-    try {
-        const companies = await firestore.collection('companies');
-        const data = await companies.get();
-        let companyArray = [];
-        if (!data.empty) {
-            data.forEach(doc => {
-                const company = new Company(
-                    doc.id,
-                    doc.data().name,
-                    doc.data().menus,
-                );
-                companyArray.push(company);
-            });
-        }
-        return companyArray;
-    } catch (error) {
-        console.log(error);
-    }
+    
 }
 
 const addMenu = function (menu) {
