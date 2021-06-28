@@ -8,7 +8,7 @@ const getById = function (menuId) {
 }
 
 const getAll = async function () {
-    
+
 }
 
 const addMenu = function (menu) {
