@@ -5,5 +5,4 @@ class Menu {
         this.menuItems = menuItems;
     }
 }
-
 module.exports = Menu;

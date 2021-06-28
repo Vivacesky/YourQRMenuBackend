@@ -1,12 +1,34 @@
 const data = require('../data (temporary)/data');
+const Company = require('../Models/company');
+const firebase = require('../db');
+const firestore = firebase.firestore();
 
-const getById = function(menuId){
+const getById = function (menuId) {
     return getAll().find(menu => menu.id === menuId);
 }
-const getAll = function(){
-    return data.Menus;
+
+const getAll = async function () {
+    try {
+        const companies = await firestore.collection('companies');
+        const data = await companies.get();
+        let companyArray = [];
+        if (!data.empty) {
+            data.forEach(doc => {
+                const company = new Company(
+                    doc.id,
+                    doc.data().name,
+                    doc.data().menus,
+                );
+                companyArray.push(company);
+            });
+        }
+        return companyArray;
+    } catch (error) {
+        console.log(error);
+    }
 }
-const addMenu = function(menu){
+
+const addMenu = function (menu) {
     data.Menus.push(menu);
     return data.Menus;
 }

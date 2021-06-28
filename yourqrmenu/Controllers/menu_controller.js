@@ -5,8 +5,8 @@ const getById = function(req, res){
     res.send(menuService.getById(req.params["menuId"]));
 }
 
-const getAll = function(req, res){
-    res.send(menuService.getAll());
+const getAll = async function (req, res) {
+    res.send(await menuService.getAll());
 }
 
 const addMenu = function(req, res){
