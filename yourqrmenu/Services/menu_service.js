@@ -1,7 +1,7 @@
 const Menu = require("../Models/menu");
 
 const getByCompanyId = function (companyId) {
-    return Menu.findOne({companyId: companyId});
+    return Menu.find({companyId: companyId});
 }
 const getAll = function () {
     return Menu.find();
