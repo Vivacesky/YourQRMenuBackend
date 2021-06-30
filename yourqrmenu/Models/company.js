@@ -18,6 +18,9 @@ const companySchema = new Schema({
         type: String,
         required: true,
     },
+    menus: [{
+        type: Schema.Types.ObjectId, ref: "menu"
+    }]
 }, {timestamps: true});
 
 const Company = mongoose.model('companies', companySchema);

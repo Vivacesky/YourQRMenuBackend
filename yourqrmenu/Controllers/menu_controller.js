@@ -35,6 +35,41 @@ const updateMenu = async function (req, res) {
         res.status(500).send({message: ex.message});
     }
 }
+const getAllCategories = async function (req, res) {
+    try {
+        res.send(await menuService.getAllCategories());
+    } catch (ex) {
+        res.status(500).send({message: ex.message});
+    }
+}
+const getMenuItemByMenuId = async function (req, res) {
+    try {
+        res.send(await menuService.getMenuItemByMenuId(req.params["menuId"]));
+    } catch (ex) {
+        res.status(500).send({message: ex.message});
+    }
+}
+const addMenuItem = async function (req, res) {
+    try {
+        res.send(await menuService.addMenuItem(req.body));
+    } catch (ex) {
+        res.status(500).send({message: ex.message});
+    }
+}
+const deleteMenuItem = async function (req, res) {
+    try {
+        res.send(await menuService.deleteMenuItem(req.params["menuItemId"]));
+    } catch (ex) {
+        res.status(500).send({message: ex.message});
+    }
+}
+const updateMenuItem = async function (req, res) {
+    try {
+        res.send(await menuService.updateMenuItem(req.params["menuItemId"], req.body));
+    } catch (ex) {
+        res.status(500).send({message: ex.message});
+    }
+}
 
 module.exports = {
     getByCompanyId,
@@ -42,4 +77,9 @@ module.exports = {
     addMenu,
     deleteMenu,
     updateMenu,
+    getAllCategories,
+    getMenuItemByMenuId,
+    addMenuItem,
+    deleteMenuItem,
+    updateMenuItem
 };

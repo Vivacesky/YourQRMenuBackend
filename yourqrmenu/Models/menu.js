@@ -1,6 +1,21 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const MenuItem = new Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    category: {
+        type: String,
+        required: true,
+    },
+    price: {
+        type: Number,
+        required: true,
+    },
+});
+
 const menuSchema = new Schema({
     companyId: {
         type: String,
@@ -10,19 +25,8 @@ const menuSchema = new Schema({
         type: String,
         required: true,
     },
-    burgers: {
-        type: Array,
-        required: true,
-    },
-    soups: {
-        type: Array,
-        required: true,
-    },
-    drinks: {
-        type: Array,
-        required: true,
-    },
-}, {timestamps: true});
+    menuItems: {type: [MenuItem]}
+});
 
 const Menu = mongoose.model('menus', menuSchema);
 module.exports = Menu;
