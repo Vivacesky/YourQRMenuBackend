@@ -19,9 +19,11 @@ const getAllCategories = async function () {
     return Menu.aggregate([{$unwind: "$menuItems"}, {
         $group: {
             _id: "$menuItems.category",
-            companies: {$push: "$companyId"}
-        }
-    }]);
+            companies: {$push: "$companyId"},
+        },
+    },
+        {$sort: { _id: 1}},
+    ]);
 }
 
 

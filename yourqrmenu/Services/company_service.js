@@ -1,10 +1,23 @@
 const Company = require("../Models/company")
 
-const getById = function (companyId) {
-    return Company.findById(companyId);
-}
-const getAll = function () {
-    return Company.find();
+// const getById = function (companyIds) {
+//     let output = [];
+//     companyIds.forEach(companyId => {
+//         output.push(Company.findById(companyId))
+//     })
+//     return output;
+// }
+const getAll = async function (query) {
+    let output = [];
+    if(query === undefined) {
+        return Company.find();
+    }
+    // {else }
+    for (const id of query.split(',')) {
+        output.push(await Company.findById(id));
+    }
+    return output;
+
 }
 const addCompany = function (company) {
     return new Company(company).save();
@@ -17,7 +30,7 @@ const updateCompany = function (companyId, company) {
 }
 
 module.exports = {
-    getById,
+    // getById,
     getAll,
     addCompany,
     deleteCompany,
