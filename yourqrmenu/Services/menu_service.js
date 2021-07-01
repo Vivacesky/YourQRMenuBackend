@@ -1,7 +1,7 @@
 const Menu = require("../Models/menu");
 
 const getByCompanyId = function (companyId) {
-    return Menu.find({companyId: companyId});
+    return Menu.find({companyId: companyId, isActive: true});
 }
 const getAll = function () {
     return Menu.find();
@@ -25,8 +25,6 @@ const getAllCategories = async function () {
         {$sort: { _id: 1}},
     ]);
 }
-
-
 const getMenuItemByMenuId = function (menuId) {
     return Menu.find({menuId: menuId});
 }
