@@ -16,9 +16,12 @@ const updateMenu = function (menuId, menu) {
     return Menu.findOneAndUpdate(menuId, menu, {new: true});
 }
 const getAllCategories = async function () {
-    const menus = await Menu.find();
-
-    return menus;
+    return Menu.aggregate([{$unwind: "$menuItems"}, {
+        $group: {
+            _id: "$menuItems.category",
+            companies: {$push: "$companyId"}
+        }
+    }]);
 }
 
 
