@@ -6,6 +6,9 @@ const router = express.Router({mergeParams: true});
 router.get('/', menuController.getAll);
 router.get('/categories', menuController.getAllCategories);
 router.get('/:companyId', menuController.getByCompanyId);
+router.get('/items/:menuId', menuController.getMenuItemsByMenuId);
+router.get('/items/:menuId/:itemId', menuController.getMenuItemByName);
+
 router.post('/', menuController.addMenu)
 router.delete('/:menuId', menuController.deleteMenu)
 router.patch('/:menuId', menuController.updateMenu)

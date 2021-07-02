@@ -1,7 +1,7 @@
 const Menu = require("../Models/menu");
 
 const getByCompanyId = function (companyId) {
-    return Menu.find({companyId: companyId, isActive: true});
+    return Menu.findOne({companyId: companyId, isActive: true});
 }
 const getAll = function () {
     return Menu.find();
@@ -25,8 +25,11 @@ const getAllCategories = async function () {
         {$sort: { _id: 1}},
     ]);
 }
-const getMenuItemByMenuId = function (menuId) {
-    return Menu.find({menuId: menuId});
+const getMenuItemsByMenuId = function (menuId) {
+    return Menu.findById(menuId).select("menuItems");
+}
+const getMenuItemByName = function (menuId, menuItemName) {
+    return getMenuItemsByMenuId(menuId).where("name").equals(menuItemName);
 }
 const addMenuItem = function (menuItem) {
     return new Menu(menuItem).save();
@@ -46,8 +49,9 @@ module.exports = {
     deleteMenu,
     updateMenu,
     getAllCategories,
-    getMenuItemByMenuId,
+    getMenuItemsByMenuId,
     addMenuItem,
     deleteMenuItem,
-    updateMenuItem
+    updateMenuItem,
+    getMenuItemByName
 };

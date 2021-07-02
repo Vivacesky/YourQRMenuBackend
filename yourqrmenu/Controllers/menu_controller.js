@@ -42,9 +42,16 @@ const getAllCategories = async function (req, res) {
         res.status(500).send({message: ex.message});
     }
 }
-const getMenuItemByMenuId = async function (req, res) {
+const getMenuItemsByMenuId = async function (req, res) {
     try {
-        res.send(await menuService.getMenuItemByMenuId(req.params["menuId"]));
+        res.send(await menuService.getMenuItemsByMenuId(req.params["menuId"]));
+    } catch (ex) {
+        res.status(500).send({message: ex.message});
+    }
+}
+const getMenuItemByName = async function (req, res) {
+    try {
+        res.send(await menuService.getMenuItemByName(req.params["menuId"],req.params["itemId"]));
     } catch (ex) {
         res.status(500).send({message: ex.message});
     }
@@ -78,8 +85,9 @@ module.exports = {
     deleteMenu,
     updateMenu,
     getAllCategories,
-    getMenuItemByMenuId,
+    getMenuItemsByMenuId,
     addMenuItem,
     deleteMenuItem,
-    updateMenuItem
+    updateMenuItem,
+    getMenuItemByName
 };
