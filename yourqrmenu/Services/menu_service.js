@@ -1,4 +1,5 @@
 const Menu = require("../Models/menu");
+const mongoose = require('mongoose');
 
 const getByCompanyId = function (companyId) {
     return Menu.findOne({companyId: companyId, isActive: true});
@@ -22,14 +23,25 @@ const getAllCategories = async function () {
             companies: {$addToSet: "$companyId"},
         },
     },
-        {$sort: { _id: 1}},
+        {$sort: {_id: 1}},
     ]);
 }
 const getMenuItemsByMenuId = function (menuId) {
     return Menu.findById(menuId).select("menuItems");
 }
-const getMenuItemByName = function (menuId, menuItemName) {
-    return getMenuItemsByMenuId(menuId).where("name").equals(menuItemName);
+const getMenuItemByName =  async function (menuId, menuItemName) {
+    return Menu.aggregate([
+        // { $sort: {_id: 1}}
+        { $match: { _id: mongoose.Types.ObjectId(menuId)} },
+        { $unwind: "$menuItems" },
+        { $match: { "menuItems.name": menuItemName } },
+        { $group: {
+            _id: 0,
+            name: { "$first": "$menuItems.name" },
+            price: { "$first": "$menuItems.price" },
+
+        }}
+    ]);
 }
 const addMenuItem = function (menuItem) {
     return new Menu(menuItem).save();
