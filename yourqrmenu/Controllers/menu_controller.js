@@ -49,30 +49,30 @@ const getMenuItemsByMenuId = async function (req, res) {
         res.status(500).send({message: ex.message});
     }
 }
-const getMenuItemByName = async function (req, res) {
+const getMenuItemById = async function (req, res) {
     try {
-        res.send(await menuService.getMenuItemByName(req.params["menuId"],req.params["itemId"]));
+        res.send(await menuService.getMenuItemById(req.params["menuId"],req.params["itemId"]));
     } catch (ex) {
         res.status(500).send({message: ex.message});
     }
 }
 const addMenuItem = async function (req, res) {
     try {
-        res.send(await menuService.addMenuItem(req.body));
+        res.send(await menuService.addMenuItem(req.params["menuId"] ,req.body));
     } catch (ex) {
         res.status(500).send({message: ex.message});
     }
 }
 const deleteMenuItem = async function (req, res) {
     try {
-        res.send(await menuService.deleteMenuItem(req.params["menuItemId"]));
+        res.send(await menuService.deleteMenuItem(req.params["menuId"], req.params["menuItemId"]));
     } catch (ex) {
         res.status(500).send({message: ex.message});
     }
 }
 const updateMenuItem = async function (req, res) {
     try {
-        res.send(await menuService.updateMenuItem(req.params["menuItemId"], req.body));
+        res.send(await menuService.updateMenuItem(req.params["menuId"], req.body));
     } catch (ex) {
         res.status(500).send({message: ex.message});
     }
@@ -89,5 +89,5 @@ module.exports = {
     addMenuItem,
     deleteMenuItem,
     updateMenuItem,
-    getMenuItemByName
+    getMenuItemById
 };

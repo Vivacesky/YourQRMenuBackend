@@ -29,28 +29,27 @@ const getAllCategories = async function () {
 const getMenuItemsByMenuId = function (menuId) {
     return Menu.findById(menuId).select("menuItems");
 }
-const getMenuItemByName =  async function (menuId, menuItemName) {
-    return Menu.aggregate([
-        // { $sort: {_id: 1}}
-        { $match: { _id: mongoose.Types.ObjectId(menuId)} },
-        { $unwind: "$menuItems" },
-        { $match: { "menuItems.name": menuItemName } },
-        { $group: {
-            _id: 0,
-            name: { "$first": "$menuItems.name" },
-            price: { "$first": "$menuItems.price" },
 
-        }}
-    ]);
+const getMenuItemById = async function (menuId, menuItemId) {
+    let menu = await Menu.findById(menuId);
+    return menu["menuItems"].find(menuItem => menuItem.id === menuItemId);
 }
-const addMenuItem = function (menuItem) {
-    return new Menu(menuItem).save();
+
+const addMenuItem = async function (menuId, menuItem) {
+    await Menu.findByIdAndUpdate(menuId, {$push: {menuItems: menuItem}});
+    return Menu.findById(menuId);
 }
-const deleteMenuItem = function (menuItemId) {
-    return Menu.findByIdAndDelete(menuItemId);
+
+const deleteMenuItem = async function (menuId, menuItemId) {
+    await Menu.findByIdAndUpdate(menuId, {$pull: {'menuItems': {_id: menuItemId}}});
+    return Menu.findById(menuId);
 }
-const updateMenuItem = function (menuItemId, menuItem) {
-    return Menu.findOneAndUpdate(menuItemId, menuItem, {new: true});
+const updateMenuItem = async function (menuId, menuItem) {
+    await Menu.updateOne({'menuItems._id': menuItem._id},
+        {'$set': {
+                'menuItems.$': menuItem,
+            }});
+    return Menu.findById(menuId);
 }
 
 
@@ -65,5 +64,5 @@ module.exports = {
     addMenuItem,
     deleteMenuItem,
     updateMenuItem,
-    getMenuItemByName
+    getMenuItemById
 };
